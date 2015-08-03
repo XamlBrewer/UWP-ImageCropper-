@@ -40,7 +40,7 @@ namespace XamlBrewer.Uwp.Controls.Helpers
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// The minimun size of the seleced region
+        /// The minimum size of the selected region
         /// </summary>
         public double MinSelectRegionSize { get; set; }
 
@@ -192,15 +192,13 @@ namespace XamlBrewer.Uwp.Controls.Helpers
         /// </summary>
         public void UpdateCorner(string cornerName, double leftUpdate, double topUpdate)
         {
-            UpdateCorner(cornerName, leftUpdate, topUpdate,
-                this.MinSelectRegionSize, this.MinSelectRegionSize);
+            UpdateCorner(cornerName, leftUpdate, topUpdate, this.MinSelectRegionSize, this.MinSelectRegionSize);
         }
 
         /// <summary>
         /// Update the Canvas.Top and Canvas.Left of the corner.
         /// </summary>
-        public void UpdateCorner(string cornerName, double leftUpdate, double topUpdate,
-            double minWidthSize, double minHeightSize)
+        public void UpdateCorner(string cornerName, double leftUpdate, double topUpdate, double minWidthSize, double minHeightSize)
         {
             switch (cornerName)
             {
@@ -257,77 +255,55 @@ namespace XamlBrewer.Uwp.Controls.Helpers
             double width = bottomRightCornerCanvasLeft - topLeftCornerCanvasLeft;
             double height = bottomRightCornerCanvasTop - topLeftCornerCanvasTop;
 
-            double scaledLeftUpdate = (bottomRightCornerCanvasLeft - topLeftCornerCanvasLeft) * (scale - 1) / 2;
-            double scaledTopUpdate = (bottomRightCornerCanvasTop - topLeftCornerCanvasTop) * (scale - 1) / 2;
+            if (scale != 1)
+            {
+                double scaledLeftUpdate = width * (scale - 1) / 2;
+                double scaledTopUpdate = height * (scale - 1) / 2;
+
+                if (scale > 1)
+                {
+                    this.UpdateCorner(SelectedRegion.BottomRightCornerName, scaledLeftUpdate, scaledTopUpdate);
+                    this.UpdateCorner(SelectedRegion.TopLeftCornerName, -scaledLeftUpdate, -scaledTopUpdate);
+                }
+                else
+                {
+                    this.UpdateCorner(SelectedRegion.TopLeftCornerName, -scaledLeftUpdate, -scaledTopUpdate);
+                    this.UpdateCorner(SelectedRegion.BottomRightCornerName, scaledLeftUpdate, scaledTopUpdate);
+                }
+
+                return;
+            }
 
             double minWidth = Math.Max(this.MinSelectRegionSize, width * scale);
             double minHeight = Math.Max(this.MinSelectRegionSize, height * scale);
 
-
-            if (scale != 1)
-            {
-                this.UpdateCorner(SelectedRegion.TopLeftCornerName, -scaledLeftUpdate, -scaledTopUpdate);
-                this.UpdateCorner(SelectedRegion.BottomRightCornerName, scaledLeftUpdate, scaledTopUpdate);
-            }
-
             // Move towards BottomRight: Move BottomRightCorner first, and then move TopLeftCorner.
             if (leftUpdate >= 0 && topUpdate >= 0)
             {
-                this.UpdateCorner(SelectedRegion.BottomRightCornerName, leftUpdate, topUpdate,
-                    minWidth, minHeight);
-                this.UpdateCorner(SelectedRegion.TopLeftCornerName, leftUpdate, topUpdate,
-                                        minWidth, minHeight);
+                this.UpdateCorner(SelectedRegion.BottomRightCornerName, leftUpdate, topUpdate, minWidth, minHeight);
+                this.UpdateCorner(SelectedRegion.TopLeftCornerName, leftUpdate, topUpdate, minWidth, minHeight);
             }
 
             // Move towards TopRight: Move TopRightCorner first, and then move BottomLeftCorner.
             else if (leftUpdate >= 0 && topUpdate < 0)
             {
-                this.UpdateCorner(SelectedRegion.TopRightCornerName, leftUpdate, topUpdate,
-                    minWidth, minHeight);
-                this.UpdateCorner(SelectedRegion.BottomLeftCornerName, leftUpdate, topUpdate,
-                    minWidth, minHeight);
+                this.UpdateCorner(SelectedRegion.TopRightCornerName, leftUpdate, topUpdate, minWidth, minHeight);
+                this.UpdateCorner(SelectedRegion.BottomLeftCornerName, leftUpdate, topUpdate, minWidth, minHeight);
             }
 
             // Move towards BottomLeft: Move BottomLeftCorner first, and then move TopRightCorner.
             else if (leftUpdate < 0 && topUpdate >= 0)
             {
-                this.UpdateCorner(SelectedRegion.BottomLeftCornerName, leftUpdate, topUpdate,
-                    minWidth, minHeight);
-                this.UpdateCorner(SelectedRegion.TopRightCornerName, leftUpdate, topUpdate,
-                    minWidth, minHeight);
+                this.UpdateCorner(SelectedRegion.BottomLeftCornerName, leftUpdate, topUpdate, minWidth, minHeight);
+                this.UpdateCorner(SelectedRegion.TopRightCornerName, leftUpdate, topUpdate, minWidth, minHeight);
             }
 
             // Move towards TopLeft: Move TopLeftCorner first, and then move BottomRightCorner.
             else if (leftUpdate < 0 && topUpdate < 0)
             {
-                this.UpdateCorner(SelectedRegion.TopLeftCornerName, leftUpdate, topUpdate,
-                    minWidth, minHeight);
-                this.UpdateCorner(SelectedRegion.BottomRightCornerName, leftUpdate, topUpdate,
-                    minWidth, minHeight);
+                this.UpdateCorner(SelectedRegion.TopLeftCornerName, leftUpdate, topUpdate, minWidth, minHeight);
+                this.UpdateCorner(SelectedRegion.BottomRightCornerName, leftUpdate, topUpdate, minWidth, minHeight);
             }
-        }
-
-        /// <summary>
-        /// Resize the SelectedRect
-        /// </summary>
-        /// <param name="scale"></param>
-        public void ResizeSelectedRect(double scale)
-        {
-            if (scale > 1)
-            {
-                this.BottomRightCornerCanvasLeft = this.BottomRightCornerCanvasLeft * scale;
-                this.BottomRightCornerCanvasTop = this.BottomRightCornerCanvasTop * scale;
-                this.TopLeftCornerCanvasLeft = this.TopLeftCornerCanvasLeft * scale;
-                this.TopLeftCornerCanvasTop = this.TopLeftCornerCanvasTop * scale;
-            }
-            else
-            {
-                this.TopLeftCornerCanvasLeft = this.TopLeftCornerCanvasLeft * scale;
-                this.TopLeftCornerCanvasTop = this.TopLeftCornerCanvasTop * scale;
-                this.BottomRightCornerCanvasLeft = this.BottomRightCornerCanvasLeft * scale;
-                this.BottomRightCornerCanvasTop = this.BottomRightCornerCanvasTop * scale;
-            }
-
         }
     }
 }

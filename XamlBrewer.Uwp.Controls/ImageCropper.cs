@@ -204,7 +204,7 @@
         }
 
         /// <summary>
-        /// If a pointer which is captured by the corner moves，the select region will be updated.
+        /// If a pointer which is captured by the corner moves, the select region will be updated.
         /// </summary>
         private void Corner_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
@@ -221,7 +221,7 @@
 
                 var side = Math.Max(Math.Abs(xUpdate), Math.Abs(yUpdate));
 
-                this.selectedRegion.UpdateCorner((sender as ContentControl).Tag as string, 
+                this.selectedRegion.UpdateCorner((sender as ContentControl).Tag as string,
                     side * Math.Sign(xUpdate),
                     side * Math.Sign(yUpdate));
                 Debug.WriteLine(side);
@@ -268,13 +268,12 @@
             if (previewImageSize.Width <= this.imageCanvas.Width &&
                 previewImageSize.Height <= this.imageCanvas.Height)
             {
+                previewImageScale = Math.Max(this.imageCanvas.Width / previewImageSize.Width,
+                 this.imageCanvas.Height / previewImageSize.Height);
             }
             else
             {
-                previewImageScale = Math.Min(this.imageCanvas.Width / previewImageSize.Width,
-                    this.imageCanvas.Height / previewImageSize.Height);
             }
-
 
             this.CroppedImage = await CropBitmap.GetCroppedBitmapAsync(
                    this.sourceImageFile,
