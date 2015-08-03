@@ -72,6 +72,7 @@
         public ImageCropper()
         {
             this.DefaultStyleKey = typeof(ImageCropper);
+            this.DataContext = this.selectedRegion;
         }
 
         public WriteableBitmap CroppedImage
@@ -127,12 +128,8 @@
                 {
                     // Control is invisible, unable to scale the source image.
                     return;
-
-                    // This would be a bit harsh:
-                    // throw new InvalidOperationException("ImageCropper is not visible.");
                 }
 
-                //var side = Math.Min(this.sourceImagePixelWidth, this.sourceImagePixelHeight);
                 this.sourceImage.Source = await CropBitmap.GetCroppedBitmapAsync(
                     this.sourceImageFile,
                     new Point(0, 0),
@@ -224,7 +221,6 @@
                 this.selectedRegion.UpdateCorner((sender as ContentControl).Tag as string,
                     side * Math.Sign(xUpdate),
                     side * Math.Sign(yUpdate));
-                Debug.WriteLine(side);
 
                 pointerPositionHistory[ptrId] = currentPosition;
             }
@@ -307,8 +303,6 @@
         /// 2. The source of the sourceImage is set to null.
         /// 3. The view state of this application is changed.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void SourceImage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (e.NewSize.IsEmpty || double.IsNaN(e.NewSize.Height) || e.NewSize.Height <= 0)

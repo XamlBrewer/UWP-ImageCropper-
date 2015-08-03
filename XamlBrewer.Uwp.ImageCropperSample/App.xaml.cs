@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mvvm;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -73,7 +74,7 @@ namespace XamlBrewer.Uwp.ImageCropperSample
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                rootFrame.Navigate(typeof(Shell), e.Arguments);
             }
             // Ensure the current window is active
             Window.Current.Activate();

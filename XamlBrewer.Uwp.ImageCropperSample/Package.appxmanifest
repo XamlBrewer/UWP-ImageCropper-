@@ -32,7 +32,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="XamlBrewer.Uwp.ImageCropperSample.App">
       <uap:VisualElements
-        DisplayName="XamlBrewer.Uwp.ImageCropperSample"
+        DisplayName="XAML Brewer UWP ImageCropper Sample"
         Square150x150Logo="Assets\Logo.png"
         Square44x44Logo="Assets\SmallLogo.png"
         Description="XamlBrewer.Uwp.ImageCropperSample"
