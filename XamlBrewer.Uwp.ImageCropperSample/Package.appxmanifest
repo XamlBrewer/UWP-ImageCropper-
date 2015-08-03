@@ -36,7 +36,7 @@
         Square150x150Logo="Assets\Logo.png"
         Square44x44Logo="Assets\SmallLogo.png"
         Description="XamlBrewer.Uwp.ImageCropperSample"
-        BackgroundColor="#464646">
+        BackgroundColor="lightSlateGray">
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
     </Application>
