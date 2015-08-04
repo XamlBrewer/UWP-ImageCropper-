@@ -6,7 +6,7 @@
     <x:Double x:Key="TransformSize">-15</x:Double>
 
     <DataTemplate x:Key="CornerTemplate">
-        <Grid>
+        <!--<Grid>
             <Path Fill="{StaticResource ApplicationPageBackgroundThemeBrush}"
                   Stroke="{StaticResource ApplicationForegroundThemeBrush}"
                   StrokeThickness="0">
@@ -21,7 +21,7 @@
                                         TranslateY="-12" />
                 </Path.RenderTransform>
             </Path>
-            <!-- To get a better grip -->
+            --><!-- To get a better grip --><!--
             <Ellipse Height="{StaticResource Size}"
                      Width="{StaticResource Size}"
                      Fill="Transparent"
@@ -31,8 +31,8 @@
                                         TranslateY="{StaticResource TransformSize}" />
                 </Ellipse.RenderTransform>
             </Ellipse>
-        </Grid>
-        <!--<Ellipse Height="{StaticResource Size}"
+        </Grid>-->
+        <Ellipse Height="{StaticResource Size}"
                  Width="{StaticResource Size}"
                  Fill="{StaticResource ApplicationPageBackgroundThemeBrush}"
                  Stroke="{StaticResource ApplicationForegroundThemeBrush}"
@@ -41,7 +41,7 @@
                 <CompositeTransform TranslateX="{StaticResource TransformSize}"
                                     TranslateY="{StaticResource TransformSize}" />
             </Ellipse.RenderTransform>
-        </Ellipse>-->
+        </Ellipse>
     </DataTemplate>
 
     <Style TargetType="local:ImageCropper">

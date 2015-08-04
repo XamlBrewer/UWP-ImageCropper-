@@ -14,8 +14,8 @@ namespace Mvvm
         public ShellViewModel()
         {
             // Build the menu
-            Menu.Add(new MenuItem() { Glyph = "", Text = "Rainbows", NavigationDestination = typeof(MainPage) });
-            Menu.Add(new MenuItem() { Glyph = "", Text = "Unicorns", NavigationDestination = typeof(MainPage) });
+            Menu.Add(new MenuItem() { Glyph = "\uEA3A", Text = "Native", NavigationDestination = typeof(MainPage) });
+            Menu.Add(new MenuItem() { Glyph = "\uE2B1", Text = "Templated", NavigationDestination = typeof(MainPage) });
         }
     }
 }
