@@ -39,5 +39,10 @@ namespace XamlBrewer.Uwp.ImageCropperSample
                 await this.ImageCropper.LoadImage(imgFile);
             }
         }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

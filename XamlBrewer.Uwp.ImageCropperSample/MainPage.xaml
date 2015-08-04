@@ -1,43 +1,57 @@
-﻿<Page
-    x:Class="XamlBrewer.Uwp.ImageCropperSample.MainPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:XamlBrewer.Uwp.ImageCropperSample"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:XamlBrewer.Uwp.Controls"
-    mc:Ignorable="d">
+﻿<Page x:Class="XamlBrewer.Uwp.ImageCropperSample.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:XamlBrewer.Uwp.ImageCropperSample"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:controls="using:XamlBrewer.Uwp.Controls"
+      mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid Grid.Row="1"
-              Margin="20">
+              Margin="8 0 8 8">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="20" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-            <Button Grid.Column="0"
-                    Height="120"
-                    Width="120"
-                    Margin="20 0"
+            <Button Height="40"
+                    Width="80"
+                    Margin="0"
                     Content="Open"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Click="OpenButton_Click" />
 
             <controls:ImageCropper x:Name="ImageCropper"
-                                   Grid.Column="1"
+                                   Grid.Row="1"
                                    VerticalAlignment="Stretch"
-                                   HorizontalAlignment="Stretch" />
+                                   HorizontalAlignment="Stretch"
+                                   Margin="0 8 4 0" />
 
-            <Grid Grid.Column="3"
-                  Background="{StaticResource ApplicationSecondaryForegroundThemeBrush}"
-                  Opacity="0.8" />
+            <Button Height="40"
+                    Width="80"
+                    Margin="0"
+                    Content="Save"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Grid.Column="1"
+                    Click="SaveButton_Click" />
 
-            <Image Grid.Column="3"
-                   Source="{Binding CroppedImage, ElementName=ImageCropper}" />
+            <Grid Background="{StaticResource ApplicationSecondaryForegroundThemeBrush}"
+                  Opacity="0.8"
+                  Grid.Column="1"
+                  Grid.Row="1"
+                  Margin="4 8 0 0" />
+
+            <Image Source="{Binding CroppedImage, ElementName=ImageCropper}"
+                   Grid.Column="1"
+                   Grid.Row="1"
+                   Margin="4 8 0 0" />
 
         </Grid>
     </Grid>

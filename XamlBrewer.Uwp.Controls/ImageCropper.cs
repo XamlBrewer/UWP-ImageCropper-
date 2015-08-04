@@ -120,9 +120,6 @@
                     sourceImageScale = Math.Min(this.layoutRoot.ActualWidth / this.sourceImagePixelWidth,
                          this.layoutRoot.ActualHeight / this.sourceImagePixelHeight);
                 }
-                else
-                {
-                }
 
                 if (sourceImageScale == 0)
                 {

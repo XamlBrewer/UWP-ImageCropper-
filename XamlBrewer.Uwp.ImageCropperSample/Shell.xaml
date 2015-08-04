@@ -112,14 +112,15 @@
                     </Frame>
 
                     <!-- SplitViewOpener -->
-                    <Grid ManipulationMode="TranslateX"
+                    <!-- Disabled: blocks the UI -->
+                    <!--<Grid ManipulationMode="TranslateX"
                           ManipulationCompleted="SplitViewOpener_ManipulationCompleted"
                           Width="150"
-                          Margin="0 160 0 0"
+                          Margin="0"
                           Background="Transparent"
                           HorizontalAlignment="Left"
                           VerticalAlignment="Stretch">
-                    </Grid>
+                    </Grid>-->
 
                     <!-- Page Width Indicator -->
                     <TextBlock x:Name="WidthIndicator"
