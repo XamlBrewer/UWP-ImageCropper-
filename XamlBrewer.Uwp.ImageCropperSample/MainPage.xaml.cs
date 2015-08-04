@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using WinRTXamlToolkit.Imaging;
+using XamlBrewer.Uwp.Controls;
 
 namespace XamlBrewer.Uwp.ImageCropperSample
 {
@@ -33,13 +33,15 @@ namespace XamlBrewer.Uwp.ImageCropperSample
             openPicker.ViewMode = PickerViewMode.Thumbnail;
             openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
             openPicker.FileTypeFilter.Add(".jpg");
-            openPicker.FileTypeFilter.Add(".jpeg");
             openPicker.FileTypeFilter.Add(".bmp");
+            openPicker.FileTypeFilter.Add(".gif");
             openPicker.FileTypeFilter.Add(".png");
             StorageFile imgFile = await openPicker.PickSingleFileAsync();
             if (imgFile != null)
             {
-                await this.ImageCropper.LoadImage(imgFile);
+                var wb = new WriteableBitmap(1,1);
+                await wb.LoadAsync(imgFile);
+                this.ImageCropper.SourceImage = wb;
             }
         }
 
@@ -48,11 +50,13 @@ namespace XamlBrewer.Uwp.ImageCropperSample
             FileSavePicker savePicker = new FileSavePicker();
             savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
             savePicker.FileTypeChoices.Add("Bitmap", new List<string>() { ".bmp" });
-            savePicker.FileTypeChoices.Add("Image", new List<string>() { ".png" });
+            savePicker.FileTypeChoices.Add("Graphical Interchange Format", new List<string>() { ".gif" });
+            savePicker.FileTypeChoices.Add("Joint Photographic Experts Group", new List<string>() { ".jpg" });
+            savePicker.FileTypeChoices.Add("Portable Network Graphics", new List<string>() { ".png" });
             var file = await savePicker.PickSaveFileAsync();
             if (file != null)
             {
-                await (this.CroppedImage.Source as WriteableBitmap).SaveToFile(file);
+                await (this.CroppedImage.Source as WriteableBitmap).SaveAsync(file);
             }
         }
     }

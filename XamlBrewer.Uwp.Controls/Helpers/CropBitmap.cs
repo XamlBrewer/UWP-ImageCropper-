@@ -109,7 +109,6 @@ namespace XamlBrewer.Uwp.Controls.Helpers
         /// <summary>
         /// Use BitmapTransform to define the region to crop, and then get the pixel data in the region
         /// </summary>
-        /// <returns></returns>
         async static private Task<byte[]> GetPixelData(BitmapDecoder decoder, uint startPointX, uint startPointY,
             uint width, uint height)
         {
@@ -122,7 +121,6 @@ namespace XamlBrewer.Uwp.Controls.Helpers
         /// If you want to get the pixel data of a scaled image, set the scaledWidth and scaledHeight
         /// of the scaled image.
         /// </summary>
-        /// <returns></returns>
         async static private Task<byte[]> GetPixelData(BitmapDecoder decoder, uint startPointX, uint startPointY,
             uint width, uint height, uint scaledWidth, uint scaledHeight)
         {

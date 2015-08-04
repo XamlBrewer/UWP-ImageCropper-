@@ -67,6 +67,33 @@
 
         #endregion
 
+        #region Dependency Properties
+
+        public WriteableBitmap SourceImage
+        {
+            get { return (WriteableBitmap)GetValue(SourceImageProperty); }
+            set { SetValue(SourceImageProperty, value); }
+        }
+
+        public static readonly DependencyProperty SourceImageProperty =
+            DependencyProperty.Register("SourceImage", typeof(WriteableBitmap), typeof(ImageCropper), new PropertyMetadata(null, OnSourceImageChanged));
+
+        private static async void OnSourceImageChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var that = d as ImageCropper;
+            var wb = e.NewValue as WriteableBitmap;
+
+            // Save local copy.
+            StorageFolder temp = ApplicationData.Current.LocalCacheFolder;
+            StorageFile file = await temp.CreateFileAsync("current_image.png", CreationCollisionOption.ReplaceExisting);
+            await wb.SaveAsync(file);
+
+            // Load
+            await that.LoadImage(file);
+        }
+
+        #endregion
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ImageCropper()
@@ -93,7 +120,7 @@
         /// </summary>
         /// <param name="imageFile">The image file.</param>
         /// <exception cref="System.ArgumentOutOfRangeException">imageFile;Image is too small.</exception>
-        public async Task LoadImage(StorageFile imageFile)
+        private async Task LoadImage(StorageFile imageFile)
         {
             using (IRandomAccessStream fileStream = await imageFile.OpenAsync(Windows.Storage.FileAccessMode.Read))
             {

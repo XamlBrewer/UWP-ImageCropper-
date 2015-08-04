@@ -111,6 +111,7 @@
   <ItemGroup>
     <Compile Include="Helpers\CropBitmap.cs" />
     <Compile Include="Helpers\SelectedRegion.cs" />
+    <Compile Include="Helpers\WriteableBitmapExtensions.cs" />
     <Compile Include="ImageCropper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
