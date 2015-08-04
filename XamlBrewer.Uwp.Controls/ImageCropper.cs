@@ -264,9 +264,6 @@
                 previewImageScale = Math.Max(this.imageCanvas.Width / previewImageSize.Width,
                  this.imageCanvas.Height / previewImageSize.Height);
             }
-            else
-            {
-            }
 
             this.CroppedImage = await CropBitmap.GetCroppedBitmapAsync(
                    this.sourceImageFile,

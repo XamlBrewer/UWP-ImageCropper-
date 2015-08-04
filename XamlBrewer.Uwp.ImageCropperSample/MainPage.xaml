@@ -48,7 +48,8 @@
                   Grid.Row="1"
                   Margin="4 8 0 0" />
 
-            <Image Source="{Binding CroppedImage, ElementName=ImageCropper}"
+            <Image x:Name="CroppedImage"
+                   Source="{Binding CroppedImage, ElementName=ImageCropper}"
                    Grid.Column="1"
                    Grid.Row="1"
                    Margin="4 8 0 0" />
