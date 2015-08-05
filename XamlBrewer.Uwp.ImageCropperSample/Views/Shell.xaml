@@ -7,8 +7,12 @@
       mc:Ignorable="d">
 
     <Page.Resources>
-        <SolidColorBrush x:Key="JustOneShadeOfGray"
-                         Color="CadetBlue" />
+        <SolidColorBrush x:Key="SplitViewBackgroundBrush"
+                         Color="LightSlateGray" />
+        <SolidColorBrush x:Key="SplitViewForegroundBrush"
+                         Color="White" />
+        <SolidColorBrush x:Key="SplitViewHighlightBrush"
+                         Color="OrangeRed" />
     </Page.Resources>
 
     <Page.DataContext>
@@ -21,7 +25,7 @@
                    IsPaneOpen="False"
                    CompactPaneLength="40"
                    OpenPaneLength="150"
-                   PaneBackground="{StaticResource JustOneShadeOfGray}"
+                   PaneBackground="{StaticResource SplitViewBackgroundBrush}"
                    DisplayMode="Overlay">
             <SplitView.Pane>
                 <Grid x:Name="SplitViewPane"
@@ -29,7 +33,7 @@
                       HorizontalAlignment="Stretch"
                       ManipulationMode="TranslateX"
                       ManipulationCompleted="SplitViewPane_ManipulationCompleted"
-                      Background="{StaticResource JustOneShadeOfGray}">
+                      Background="{StaticResource SplitViewBackgroundBrush}">
                     <ListView ItemsSource="{Binding Menu}"
                               SelectionChanged="Menu_SelectionChanged"
                               Margin="0 48 0 0"
@@ -41,11 +45,11 @@
                                               Glyph="{Binding Glyph}"
                                               VerticalAlignment="Center"
                                               HorizontalAlignment="Center"
-                                              Foreground="White"
+                                              Foreground="{StaticResource SplitViewForegroundBrush}"
                                               ToolTipService.ToolTip="{Binding Text}" />
                                     <TextBlock Text="{Binding Text}"
                                                Margin="8 0 0 0"
-                                               Foreground="White" />
+                                               Foreground="{StaticResource SplitViewForegroundBrush}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -72,14 +76,14 @@
                                               Height="236"
                                               Margin="4 0 4 4"
                                               Stretch="Fill"
-                                              Fill="White"
+                                              Fill="{StaticResource SplitViewForegroundBrush}"
                                               Data="F1 M 4869.77,-3633.83C 4870.14,-3633.18 4866.87,-3606.81 4867.34,-3603.82C 4867.81,-3600.82 4871.83,-3590.35 4871.83,-3584.36C 4871.83,-3574.77 4868.13,-3569.7 4865.19,-3561.36C 4863.32,-3556.07 4863.13,-3540.54 4862.94,-3538.77C 4862.76,-3536.99 4853.72,-3414.8 4852.97,-3411.99C 4852.22,-3409.19 4849.1,-3401.58 4843.86,-3401.33C 4838.63,-3401.08 4802.53,-3401.33 4809.36,-3401.33C 4816.18,-3401.33 4779.21,-3401.08 4773.98,-3401.33C 4768.74,-3401.58 4766.14,-3408.25 4765.74,-3411.99C 4765.44,-3414.88 4755.96,-3536.99 4755.77,-3538.77C 4755.58,-3540.54 4755.39,-3556.07 4753.52,-3561.36C 4750.58,-3569.7 4746.89,-3574.77 4746.89,-3584.36C 4746.89,-3590.35 4750.91,-3600.82 4751.37,-3603.82C 4751.84,-3606.81 4748.57,-3633.18 4748.94,-3633.83C 4749.32,-3634.49 4750.81,-3634.49 4750.81,-3634.49" />
                                     </Canvas>
                                 </Viewbox>
                             </Canvas>
                             <Grid Width="200"
                                   Height="80">
-                                <TextBlock Foreground="Coral"
+                                <TextBlock Foreground="{StaticResource SplitViewHighlightBrush}"
                                            FontSize="24"
                                            FontWeight="SemiBold"
                                            VerticalAlignment="Bottom"
@@ -87,7 +91,7 @@
                                            Margin="48 0 8 12">
                                     <Run Text="XAML" />
                                     <Run Text="Brewer"
-                                         Foreground="White"
+                                         Foreground="{StaticResource SplitViewForegroundBrush}"
                                          FontWeight="Light" />
                                 </TextBlock>
                             </Grid>
@@ -121,13 +125,6 @@
                           HorizontalAlignment="Left"
                           VerticalAlignment="Stretch">
                     </Grid>-->
-
-                    <!-- Page Width Indicator -->
-                    <TextBlock x:Name="WidthIndicator"
-                               Foreground="{StaticResource JustOneShadeOfGray}"
-                               VerticalAlignment="Bottom"
-                               HorizontalAlignment="Right"
-                               Margin="8" />
                 </Grid>
             </SplitView.Content>
         </SplitView>
@@ -139,7 +136,7 @@
                 Width="40"
                 Height="40"
                 Background="Transparent"
-                Foreground="OrangeRed"
+                Foreground="{StaticResource SplitViewHighlightBrush}"
                 VerticalAlignment="Top"
                 BorderThickness="0"
                 Click="HamburgerButton_Click" />

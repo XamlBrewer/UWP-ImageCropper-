@@ -21,9 +21,9 @@
 
             <Button Height="40"
                     Width="80"
-                    Margin="0"
+                    Margin="0 0 4 0"
                     Content="Open"
-                    HorizontalAlignment="Left"
+                    HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     Click="OpenButton_Click" />
 

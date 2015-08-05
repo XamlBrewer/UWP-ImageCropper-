@@ -6,32 +6,6 @@
     <x:Double x:Key="TransformSize">-15</x:Double>
 
     <DataTemplate x:Key="CornerTemplate">
-        <!--<Grid>
-            <Path Fill="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                  Stroke="{StaticResource ApplicationForegroundThemeBrush}"
-                  StrokeThickness="0">
-                <Path.Data>
-                    <GeometryGroup FillRule="Nonzero">
-                        <RectangleGeometry Rect="0 0 8 40" />
-                        <RectangleGeometry Rect="0 0 40 8" />
-                    </GeometryGroup>
-                </Path.Data>
-                <Path.RenderTransform>
-                    <CompositeTransform TranslateX="-12"
-                                        TranslateY="-12" />
-                </Path.RenderTransform>
-            </Path>
-            --><!-- To get a better grip --><!--
-            <Ellipse Height="{StaticResource Size}"
-                     Width="{StaticResource Size}"
-                     Fill="Transparent"
-                     StrokeThickness="0">
-                <Ellipse.RenderTransform>
-                    <CompositeTransform TranslateX="{StaticResource TransformSize}"
-                                        TranslateY="{StaticResource TransformSize}" />
-                </Ellipse.RenderTransform>
-            </Ellipse>
-        </Grid>-->
         <Ellipse Height="{StaticResource Size}"
                  Width="{StaticResource Size}"
                  Fill="{StaticResource ApplicationPageBackgroundThemeBrush}"
@@ -61,10 +35,8 @@
                                   Opacity="0.6">
                                 <Path.Data>
                                     <GeometryGroup>
-                                        <RectangleGeometry Rect="{Binding OuterRect,Mode=OneWay}">
-                                        </RectangleGeometry>
-                                        <RectangleGeometry Rect="{Binding SelectedRect,Mode=OneWay}">
-                                        </RectangleGeometry>
+                                        <RectangleGeometry Rect="{Binding OuterRect, Mode=OneWay}" />
+                                        <RectangleGeometry Rect="{Binding SelectedRect, Mode=OneWay}" />
                                     </GeometryGroup>
                                 </Path.Data>
                             </Path>
@@ -72,19 +44,19 @@
                                   Fill="{StaticResource ApplicationPageBackgroundThemeBrush}"
                                   Opacity="0">
                                 <Path.Data>
-                                    <RectangleGeometry Rect="{Binding SelectedRect,Mode=OneWay}" />
+                                    <RectangleGeometry Rect="{Binding SelectedRect, Mode=OneWay}" />
                                 </Path.Data>
                             </Path>
                             <ContentControl ContentTemplate="{StaticResource CornerTemplate}"
                                             x:Name="PART_TopLeftCorner"
                                             Tag="TopLeftCorner"
-                                            Canvas.Left="{Binding Path=TopLeftCornerCanvasLeft,Mode=OneWay}"
-                                            Canvas.Top="{Binding Path=TopLeftCornerCanvasTop,Mode=OneWay}" />
+                                            Canvas.Left="{Binding Path=TopLeftCornerCanvasLeft, Mode=OneWay}"
+                                            Canvas.Top="{Binding Path=TopLeftCornerCanvasTop, Mode=OneWay}" />
                             <ContentControl ContentTemplate="{StaticResource CornerTemplate}"
                                             x:Name="PART_TopRightCorner"
                                             Tag="TopRightCorner"
-                                            Canvas.Left="{Binding Path=BottomRightCornerCanvasLeft,Mode=OneWay}"
-                                            Canvas.Top="{Binding Path=TopLeftCornerCanvasTop,Mode=OneWay}">
+                                            Canvas.Left="{Binding Path=BottomRightCornerCanvasLeft, Mode=OneWay}"
+                                            Canvas.Top="{Binding Path=TopLeftCornerCanvasTop, Mode=OneWay}">
                                 <ContentControl.RenderTransform>
                                     <RotateTransform Angle="90" />
                                 </ContentControl.RenderTransform>
@@ -92,8 +64,8 @@
                             <ContentControl ContentTemplate="{StaticResource CornerTemplate}"
                                             x:Name="PART_BottomLeftCorner"
                                             Tag="BottomLeftCorner"
-                                            Canvas.Left="{Binding Path=TopLeftCornerCanvasLeft,Mode=OneWay}"
-                                            Canvas.Top="{Binding Path=BottomRightCornerCanvasTop,Mode=OneWay}">
+                                            Canvas.Left="{Binding Path=TopLeftCornerCanvasLeft, Mode=OneWay}"
+                                            Canvas.Top="{Binding Path=BottomRightCornerCanvasTop, Mode=OneWay}">
                                 <ContentControl.RenderTransform>
                                     <RotateTransform Angle="270" />
                                 </ContentControl.RenderTransform>
@@ -101,8 +73,8 @@
                             <ContentControl ContentTemplate="{StaticResource CornerTemplate}"
                                             x:Name="PART_BottomRightCorner"
                                             Tag="BottomRightCorner"
-                                            Canvas.Left="{Binding Path=BottomRightCornerCanvasLeft,Mode=OneWay}"
-                                            Canvas.Top="{Binding Path=BottomRightCornerCanvasTop,Mode=OneWay}">
+                                            Canvas.Left="{Binding Path=BottomRightCornerCanvasLeft, Mode=OneWay}"
+                                            Canvas.Top="{Binding Path=BottomRightCornerCanvasTop, Mode=OneWay}">
                                 <ContentControl.RenderTransform>
                                     <RotateTransform Angle="180" />
                                 </ContentControl.RenderTransform>
