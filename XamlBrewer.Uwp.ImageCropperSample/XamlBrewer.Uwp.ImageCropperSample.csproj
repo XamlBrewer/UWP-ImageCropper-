@@ -94,6 +94,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CameraPage.xaml.cs">
+      <DependentUpon>CameraPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TemplatePage.xaml.cs">
       <DependentUpon>TemplatePage.xaml</DependentUpon>
     </Compile>
@@ -131,6 +134,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Views\CameraPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\TemplatePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
