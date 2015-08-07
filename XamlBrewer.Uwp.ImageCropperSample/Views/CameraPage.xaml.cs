@@ -31,16 +31,16 @@ namespace XamlBrewer.Uwp.ImageCropperSample
 
         private async void OpenButton_Click(object sender, RoutedEventArgs e)
         {
-
             StorageFolder temp = ApplicationData.Current.LocalCacheFolder;
             StorageFile file = await temp.CreateFileAsync("current_image.png", CreationCollisionOption.ReplaceExisting);
 
             await cameraService.MediaCapture.CapturePhotoToStorageFileAsync(ImageEncodingProperties.CreateJpeg(), file);
 
-            StorageFile file2 = await temp.GetFileAsync("current_image.png");
+            file = null;
+            file = await temp.GetFileAsync("current_image.png");
 
             var wb = new WriteableBitmap(1, 1);
-            await wb.LoadAsync(file2);
+            await wb.LoadAsync(file);
             this.ImageCropper.SourceImage = wb;
 
             await cameraService.StopPreviewAsync();
