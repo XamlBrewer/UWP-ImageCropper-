@@ -28,6 +28,7 @@
                     Click="OpenButton_Click" />
 
             <controls:ImageCropper x:Name="ImageCropper"
+                                   AspectRatio=".6"
                                    Grid.Row="1"
                                    VerticalAlignment="Stretch"
                                    HorizontalAlignment="Stretch"

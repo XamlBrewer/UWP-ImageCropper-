@@ -78,6 +78,15 @@
         public static readonly DependencyProperty SourceImageProperty =
             DependencyProperty.Register("SourceImage", typeof(WriteableBitmap), typeof(ImageCropper), new PropertyMetadata(null, OnSourceImageChanged));
 
+        public static readonly DependencyProperty AspectRatioProperty = DependencyProperty.Register(
+            "AspectRatio", typeof(double), typeof(ImageCropper), new PropertyMetadata(0));
+
+        public double AspectRatio
+        {
+            get { return (double)GetValue(AspectRatioProperty); }
+            set { SetValue(AspectRatioProperty, value); }
+        }
+
         private static async void OnSourceImageChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var that = d as ImageCropper;
@@ -108,10 +117,7 @@
             private set
             {
                 this.croppedImage = value;
-                if (this.PropertyChanged != null)
-                {
-                    this.PropertyChanged(this, new PropertyChangedEventArgs("CroppedImage"));
-                }
+                this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CroppedImage"));
             }
         }
 
@@ -131,8 +137,7 @@
                 this.sourceImagePixelWidth = decoder.PixelWidth;
             }
 
-            if (this.sourceImagePixelHeight < 2 * CornerSize ||
-                this.sourceImagePixelWidth < 2 * CornerSize)
+            if (this.sourceImagePixelHeight < 2 * CornerSize || this.sourceImagePixelWidth < 2 * CornerSize)
             {
                 // Image too small.
                 throw new ArgumentOutOfRangeException("imageFile", "Image is too small.");
@@ -141,8 +146,7 @@
             {
                 double sourceImageScale = 1;
 
-                if (this.sourceImagePixelHeight > this.layoutRoot.ActualHeight ||
-                    this.sourceImagePixelWidth > this.layoutRoot.ActualWidth)
+                if (this.sourceImagePixelHeight > this.layoutRoot.ActualHeight || this.sourceImagePixelWidth > this.layoutRoot.ActualWidth)
                 {
                     sourceImageScale = Math.Min(this.layoutRoot.ActualWidth / this.sourceImagePixelWidth,
                          this.layoutRoot.ActualHeight / this.sourceImagePixelHeight);
@@ -169,13 +173,18 @@
         /// </summary>
         protected override void OnApplyTemplate()
         {
+            // AspectRatio = 0;
+
             // Code might use some null reference checks here.
 
             this.layoutRoot = this.GetTemplateChild(LayoutRootPartName) as Grid;
 
             this.selectRegion = this.GetTemplateChild(SelectRegionPartName) as Path;
             this.selectRegion.ManipulationMode = ManipulationModes.Scale | ManipulationModes.TranslateX | ManipulationModes.TranslateY;
-            selectedRegion = new SelectedRegion { MinSelectRegionSize = 2 * CornerSize };
+            selectedRegion = new SelectedRegion
+            {
+                MinSelectRegionSize = 2 * CornerSize
+            };
             this.DataContext = selectedRegion;
 
             this.topLeftCorner = this.GetTemplateChild(TopLeftCornerPartName) as ContentControl;
@@ -242,11 +251,19 @@
 
                 var side = Math.Max(Math.Abs(xUpdate), Math.Abs(yUpdate));
 
+                var leftUpdate = side * Math.Sign(xUpdate);
+                var topUpdate = side * Math.Sign(yUpdate);
+
+                //if there was an aspect ratio set (zero is default value) the lock the sides when cropping
+                if (AspectRatio > 0)
+                    topUpdate = leftUpdate * this.AspectRatio;
+
                 this.selectedRegion.UpdateCorner((sender as ContentControl).Tag as string,
-                    side * Math.Sign(xUpdate),
-                    side * Math.Sign(yUpdate));
+                        leftUpdate,
+                        topUpdate);
 
                 pointerPositionHistory[ptrId] = currentPosition;
+
             }
 
             e.Handled = true;
@@ -267,6 +284,8 @@
 
             (sender as UIElement).ReleasePointerCapture(e.Pointer);
 
+
+
             this.UpdatePreviewImage();
             e.Handled = true;
         }
@@ -285,8 +304,7 @@
 
             double previewImageScale = 1;
 
-            if (previewImageSize.Width <= this.imageCanvas.Width &&
-                previewImageSize.Height <= this.imageCanvas.Height)
+            if (previewImageSize.Width <= this.imageCanvas.Width && previewImageSize.Height <= this.imageCanvas.Height)
             {
                 previewImageScale = Math.Max(this.imageCanvas.Width / previewImageSize.Width,
                  this.imageCanvas.Height / previewImageSize.Height);
@@ -342,7 +360,13 @@
 
                 // Always Reset Selected Region
                 var width = Math.Min(e.NewSize.Width, e.NewSize.Height);
-                this.selectedRegion.ResetCorner(0, 0, width, width);
+                //this.selectedRegion.ResetCorner(0, 0, width, width);
+                //this.selectedRegion.ResetCorner(0, 0, App.ViewModel.MeTileSize.Width, App.ViewModel.MeTileSize.Height);
+
+                if (this.AspectRatio > 0)
+                    this.selectedRegion.ResetCorner(0, 0, e.NewSize.Width, e.NewSize.Width * this.AspectRatio);
+                else
+                    this.selectedRegion.ResetCorner(0, 0, width, width);
 
                 this.UpdatePreviewImage();
             }

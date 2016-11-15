@@ -16,6 +16,8 @@
  * WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
 \***************************************************************************/
 
+using System.Diagnostics;
+
 namespace XamlBrewer.Uwp.Controls.Helpers
 {
     using System;
@@ -192,6 +194,8 @@ namespace XamlBrewer.Uwp.Controls.Helpers
         /// </summary>
         public void UpdateCorner(string cornerName, double leftUpdate, double topUpdate)
         {
+            Debug.WriteLine($"UpdateSelectedRect() Was Performed {SelectedRect.Width}w X {SelectedRect.Height}h - Ratio: {SelectedRect.Height / SelectedRect.Width}");
+
             UpdateCorner(cornerName, leftUpdate, topUpdate, this.MinSelectRegionSize, this.MinSelectRegionSize);
         }
 
@@ -203,33 +207,24 @@ namespace XamlBrewer.Uwp.Controls.Helpers
             switch (cornerName)
             {
                 case SelectedRegion.TopLeftCornerName:
-                    TopLeftCornerCanvasLeft = ValidateValue(topLeftCornerCanvasLeft + leftUpdate,
-                        0, bottomRightCornerCanvasLeft - minWidthSize);
-                    TopLeftCornerCanvasTop = ValidateValue(topLeftCornerCanvasTop + topUpdate,
-                        0, bottomRightCornerCanvasTop - minHeightSize);
+                    TopLeftCornerCanvasLeft = ValidateValue(topLeftCornerCanvasLeft + leftUpdate, 0, bottomRightCornerCanvasLeft - minWidthSize);
+                    TopLeftCornerCanvasTop = ValidateValue(topLeftCornerCanvasTop + topUpdate, 0, bottomRightCornerCanvasTop - minHeightSize);
                     break;
                 case SelectedRegion.TopRightCornerName:
-                    BottomRightCornerCanvasLeft = ValidateValue(bottomRightCornerCanvasLeft + leftUpdate,
-                        topLeftCornerCanvasLeft + minWidthSize, outerRect.Width);
-                    TopLeftCornerCanvasTop = ValidateValue(topLeftCornerCanvasTop + topUpdate,
-                        0, bottomRightCornerCanvasTop - minHeightSize);
+                    BottomRightCornerCanvasLeft = ValidateValue(bottomRightCornerCanvasLeft + leftUpdate, topLeftCornerCanvasLeft + minWidthSize, outerRect.Width);
+                    TopLeftCornerCanvasTop = ValidateValue(topLeftCornerCanvasTop + topUpdate, 0, bottomRightCornerCanvasTop - minHeightSize);
                     break;
                 case SelectedRegion.BottomLeftCornerName:
-                    TopLeftCornerCanvasLeft = ValidateValue(topLeftCornerCanvasLeft + leftUpdate,
-                        0, bottomRightCornerCanvasLeft - minWidthSize);
-                    BottomRightCornerCanvasTop = ValidateValue(bottomRightCornerCanvasTop + topUpdate,
-                        topLeftCornerCanvasTop + minHeightSize, outerRect.Height);
+                    TopLeftCornerCanvasLeft = ValidateValue(topLeftCornerCanvasLeft + leftUpdate, 0, bottomRightCornerCanvasLeft - minWidthSize);
+                    BottomRightCornerCanvasTop = ValidateValue(bottomRightCornerCanvasTop + topUpdate, topLeftCornerCanvasTop + minHeightSize, outerRect.Height);
                     break;
                 case SelectedRegion.BottomRightCornerName:
-                    BottomRightCornerCanvasLeft = ValidateValue(bottomRightCornerCanvasLeft + leftUpdate,
-                        topLeftCornerCanvasLeft + minWidthSize, outerRect.Width);
-                    BottomRightCornerCanvasTop = ValidateValue(bottomRightCornerCanvasTop + topUpdate,
-                        topLeftCornerCanvasTop + minHeightSize, outerRect.Height);
+                    BottomRightCornerCanvasLeft = ValidateValue(bottomRightCornerCanvasLeft + leftUpdate, topLeftCornerCanvasLeft + minWidthSize, outerRect.Width);
+                    BottomRightCornerCanvasTop = ValidateValue(bottomRightCornerCanvasTop + topUpdate, topLeftCornerCanvasTop + minHeightSize, outerRect.Height);
                     break;
                 default:
                     throw new ArgumentException("cornerName: " + cornerName + "  is not recognized.");
             }
-
         }
 
         private double ValidateValue(double tempValue, double from, double to)
@@ -250,7 +245,7 @@ namespace XamlBrewer.Uwp.Controls.Helpers
         /// <summary>
         /// Update the SelectedRect when it is moved or scaled.
         /// </summary>
-        public void UpdateSelectedRect(double scale, double leftUpdate, double topUpdate)
+        public void UpdateSelectedRect(double scale, double leftUpdate, double topUpdate) //I added an aspect ratio param
         {
             double width = bottomRightCornerCanvasLeft - topLeftCornerCanvasLeft;
             double height = bottomRightCornerCanvasTop - topLeftCornerCanvasTop;
